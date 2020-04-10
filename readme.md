@@ -1,5 +1,50 @@
 # ConvLSTM.pytorch
 
+
+## LiteML README
+
+The conv lstm block was adapted from: https://github.com/ndrplz/ConvLSTM_pytorch
+
+To run the example type:
+```
+python main.py --name 3x3_16_3x3_32_3x3_64 --qat true --to_onnx false
+```
+
+### Command line arguments
+--to_onnx: boolean, set to export the model to onnx file
+
+--qat: boolean do quantization aware training
+
+
+The original model is wrapped in Retrainer model in following way:
+```
+        cfg = RetrainerConfig("./liteml_config.yaml", custom_tracer = CustomTracer1)
+        cfg.optimizations_config["QAT"]['calibration_loader'] = valid_loader
+        cfg.optimizations_config["QAT"]['calibration_loader_key'] = key
+        model = RetrainerModel(model, cfg)
+        model.initialize_quantizers(valid_loader, key=key)
+        model = model.to(config.device)
+```
+
+
+### Vanilla loss plots
+
+![plot](./images/vanilla/test.png)
+![plot](./images/vanilla/train.png)
+![plot](./images/vanilla/validation.png)
+
+
+### QAT 8 bit retraining loss plots
+
+![plot](./images/qat/test.png)
+![plot](./images/qat/train.png)
+![plot](./images/qat/validation.png)
+
+
+
+
+## Repo README
+
 This repository is an unofficial pytorch implementation of 
 [Convolutional LSTM Network: A Machine Learning Approach for Precipitation Nowcasting](https://arxiv.org/abs/1506.04214v1).
 We reimplement the experiments in the paper based on the MovingMNIST dataset, which is followed by [Github](https://github.com/jhhuang96/ConvLSTM-PyTorch).
@@ -16,7 +61,7 @@ pip install requirements.txt
 ## Quick start
 Running the code with the following command, and the '--config' parameter represents different network architectures.
 ```
-python main.py --config 3x3_16_3x3_32_3x3_64
+python main.py --config 3x3_16_3x3_32_3x3_64 --qat True
 ```
 
 ## Results

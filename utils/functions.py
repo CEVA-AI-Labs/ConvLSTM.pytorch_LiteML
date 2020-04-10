@@ -2,9 +2,9 @@
 # --coding='utf-8'--
 # Written by czifan (czifan@pku.edu.cn)
 # ------------------------------------------------------------------------------
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+# from __future__ import absolute_import
+# from __future__ import division
+# from __future__ import print_function
 import os
 import torch
 import numpy as np
@@ -17,7 +17,7 @@ def train(config, logger, epoch, model, train_loader, criterion, optimizer):
     epoch_records = {'loss': []}
     num_batchs = len(train_loader)
     for batch_idx, (inputs, targets) in enumerate(train_loader):
-        print(inputs.max())
+        #print(inputs.max())
         inputs = inputs.float().to(config.device)
         targets = targets.float().to(config.device)
         outputs = model(inputs)
@@ -29,6 +29,9 @@ def train(config, logger, epoch, model, train_loader, criterion, optimizer):
         if batch_idx and batch_idx % config.display == 0:
             logger.info('EP:{:03d}\tBI:{:05d}/{:05d}\tLoss:{:.6f}({:.6f})'.format(epoch, batch_idx, num_batchs,
                                                                                 epoch_records['loss'][-1], np.mean(epoch_records['loss'])))
+            print('EP:{:03d}\tBI:{:05d}/{:05d}\tLoss:{:.6f}({:.6f})'.format(epoch, batch_idx, num_batchs,
+                                                                                  epoch_records['loss'][-1],
+                                                                                  np.mean(epoch_records['loss'])))
     return epoch_records
 
 def valid(config, logger, epoch, model, valid_loader, criterion):

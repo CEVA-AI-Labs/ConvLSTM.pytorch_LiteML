@@ -1,0 +1,46 @@
+QAT:
+    skip-first-conv-quantization: On
+    warmup_epochs: 0
+    batch_size: 512
+    training_set_length: 50000
+    per_channel: False
+    data-quantization:
+      status: On
+      bits: 8
+      custom-bits: { }
+      symmetric: False
+      pact: True
+      moving-average: False
+      ptq:
+        quantile: False
+
+
+    weights-quantization:
+      status: On
+      bits: 8
+      symmetric: False
+      layer_norm: False
+      custom-bits:  {}
+
+Pruning:
+  pruning_layers_config: { }
+  sparsity_goal: 0.5
+  initial_sparsity: 0
+  use_epochs: True
+  prune_freq: 50
+  prune_epochs: 60
+  train_epochs: 0
+  training_set_length: 10000
+  batch_size: 64
+  optimize_pruning_scheme: True
+  input_size: !!python/tuple [ 1, 28, 28 ]
+  min_sparsity: 0
+  pruning_mode: 'unstructured'
+  semi_structured_pruning_config:
+    semi_structured_batch_size: 16
+    permute_weights_matrix: True
+    window_size: 16
+    fuse_size: 4
+    output_maps: 32
+    acceleration_factor: 2
+  device: 'cuda'

@@ -2,9 +2,9 @@
 # --coding='utf-8'--
 # Written by czifan (czifan@pku.edu.cn)
 # ------------------------------------------------------------------------------
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+# from __future__ import absolute_import
+# from __future__ import division
+# from __future__ import print_function
 import torch
 import logging
 import os
@@ -23,8 +23,11 @@ def build_logging(config):
     logging.getLogger('').addHandler(console)
     return logging
 
-def save_checkpoint(states, is_best, output_dir,
+def save_checkpoint(states, is_best, output_dir = './output',
                     filename='checkpoint.pth.tar'):
+    import sys
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
     torch.save(states, os.path.join(output_dir, filename))
     if is_best:
         torch.save(states, os.path.join(output_dir, 'model_best.pth.tar'))
