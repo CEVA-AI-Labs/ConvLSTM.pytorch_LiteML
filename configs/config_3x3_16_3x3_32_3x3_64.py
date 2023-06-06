@@ -14,7 +14,7 @@ class Config:
     gpus = [0, ]
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     if torch.cuda.is_available():
-        num_workers = 8 * len(gpus)
+        num_workers =0# 8 * len(gpus)
         train_batch_size = 64
         valid_batch_size = 2 * train_batch_size
         test_batch_size = 2 * train_batch_size
