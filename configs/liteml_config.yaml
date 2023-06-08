@@ -1,0 +1,23 @@
+QAT:
+    skip-first-conv-quantization: On
+    warmup_epochs: 0
+    batch_size: 512
+    training_set_length: 50000
+    per_channel: False
+    data-quantization:
+      status: On
+      bits: 8
+      custom-bits: { }
+      symmetric: False
+      pact: True
+      moving-average: False
+      ptq:
+        quantile: False
+
+
+    weights-quantization:
+      status: On
+      bits: 8
+      symmetric: False
+      layer_norm: False
+      custom-bits:  {}

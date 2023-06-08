@@ -3,6 +3,7 @@
 
 ## LiteML README
 
+The original model is wrapped in Retrainer model in following way:
 ```
         cfg = RetrainerConfig("./liteml_config.yaml", custom_tracer = CustomTracer1)
         cfg.optimizations_config["QAT"]['calibration_loader'] = valid_loader
@@ -11,7 +12,10 @@
         model.initialize_quantizers(valid_loader, key=key)
         model = model.to(config.device)
 ```
+
+
 ### Vanilla loss plots
+
 ![plot](./images/vanilla/test.png)
 ![plot](./images/vanilla/train.png)
 ![plot](./images/vanilla/validation.png)
@@ -23,7 +27,7 @@
 ![plot](./images/qat/train.png)
 ![plot](./images/qat/validation.png)
 
-QAT
+
 
 
 ## Repo README
