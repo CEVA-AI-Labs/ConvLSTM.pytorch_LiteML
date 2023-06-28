@@ -86,8 +86,8 @@ def main():
         torch.onnx.export(model, next(iter(valid_loader))[0].float().cuda(), 'conv_lstm.onnx')
     if QAT:
         cfg = RetrainerConfig("./configs/liteml_config.yaml", custom_tracer = CustomTracer1)
-        cfg.optimizations_config["QAT"]['calibration_loader'] = valid_loader
-        cfg.optimizations_config["QAT"]['calibration_loader_key'] = key
+        cfg["QAT"]['calibration_loader'] = valid_loader
+        cfg["QAT"]['calibration_loader_key'] = key
         model = RetrainerModel(model, cfg)
         model.initialize_quantizers(valid_loader, key=key)
         model = model.to(config.device)
