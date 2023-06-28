@@ -10,6 +10,12 @@ To run the example type:
 python main.py --name 3x3_16_3x3_32_3x3_64 --qat true --to_onnx false
 ```
 
+| Float (Dice loss) | 8 bit PTQ (dice loss) | 8 bit QAT (Dice Loss) |
+|-------------------| --------------------- | --------------------- |
+| 0.682             | 0.79                  | 0.68                  |
+
+Note, this model requires custom tracer. for more details about custom tracers see LiteML documentation.
+
 ### Command line arguments
 --to_onnx: boolean, set to export the model to onnx file
 
@@ -19,8 +25,8 @@ python main.py --name 3x3_16_3x3_32_3x3_64 --qat true --to_onnx false
 The original model is wrapped in Retrainer model in following way:
 ```
         cfg = RetrainerConfig("./liteml_config.yaml", custom_tracer = CustomTracer1)
-        cfg.optimizations_config["QAT"]['calibration_loader'] = valid_loader
-        cfg.optimizations_config["QAT"]['calibration_loader_key'] = key
+        cfg["QAT"]['calibration_loader'] = valid_loader
+        cfg["QAT"]['calibration_loader_key'] = key
         model = RetrainerModel(model, cfg)
         model.initialize_quantizers(valid_loader, key=key)
         model = model.to(config.device)
